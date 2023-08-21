@@ -14,7 +14,7 @@ void bubble_sort(int* arr,int n){
     bool flag;
     int last_swapped_index = n-1;
     int new_last_swapped_index=0;
-    for(int i=0;i<n;i++){
+    for(int i=0;i<n-1;i++){
         flag = false;
         
         for(int j=0;j<last_swapped_index;j++){
