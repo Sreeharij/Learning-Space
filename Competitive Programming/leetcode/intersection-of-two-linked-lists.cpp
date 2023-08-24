@@ -24,12 +24,23 @@ public:
             ptr2 = ptr2->next;
         }
 
-        while(!stack_1.empty() && !stack_2.empty() && stack_1.top() == stack_2.top()){
-            intersection_point = stack_1.top();
-            stack_1.pop();
-            stack_2.pop();
+        ptr1 = headA;
+        ptr2 = headB;
+        while(ptr1!=ptr2){
+            if(ptr1){
+                ptr1 = ptr1->next;
+            }
+            else{
+                ptr1 = headB;
+            }
+            if(ptr2){
+                ptr2 = ptr2->next;
+            }
+            else{
+                ptr2 = headA;
+            }
         }
 
-        return intersection_point;
+        return ptr1;
     }
 };
