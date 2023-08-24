@@ -9,7 +9,7 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode *intersection_point = headA;
+        ListNode *intersection_point=nullptr;
         ListNode *ptr1 = headA;
         ListNode *ptr2 = headB;
         stack<ListNode*> stack_1;
@@ -24,23 +24,12 @@ public:
             ptr2 = ptr2->next;
         }
 
-        while(!stack_1.empty() && !stack_2.empty()){
-            ptr1 = stack_1.top();
-            ptr2 = stack_2.top();
+        while(!stack_1.empty() && !stack_2.empty() && stack_1.top() == stack_2.top()){
+            intersection_point = stack_1.top();
             stack_1.pop();
             stack_2.pop();
-            if(ptr1!=ptr2){
-                return ptr1->next;
-            }
         }
 
-        if(!stack_1.empty()){
-            intersection_point = stack_1.top()->next;
-        }
-        if(!stack_2.empty()){
-            intersection_point = stack_2.top()->next;
-        }
-        
         return intersection_point;
     }
 };
