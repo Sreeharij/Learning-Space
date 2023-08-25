@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 
 class Binary_Tree{
@@ -47,29 +48,29 @@ public:
             }
         }
     }
-    void Preorder(){Preorder(root);}
-    void Preorder(Node *ptr){
+    void Recursive_Preorder(){Recursive_Preorder(root);}
+    void Recursive_Preorder(Node *ptr){
         if(ptr){
             cout<<ptr->data<<", ";
-            Preorder(ptr->lchild);
-            Preorder(ptr->rchild);
+            Recursive_Preorder(ptr->lchild);
+            Recursive_Preorder(ptr->rchild);
         }
     }
 
-    void Inorder(){Inorder(root);}
-    void Inorder(Node *ptr){
+    void Recursive_Inorder(){Recursive_Inorder(root);}
+    void Recursive_Inorder(Node *ptr){
         if(ptr){
-            Inorder(ptr->lchild);
+            Recursive_Inorder(ptr->lchild);
             cout<<ptr->data<<", ";
-            Inorder(ptr->rchild);
+            Recursive_Inorder(ptr->rchild);
         }
     }
 
-    void Postorder(){Postorder(root);}
-    void Postorder(Node *ptr){
+    void Recursive_Postorder(){Recursive_Postorder(root);}
+    void Recursive_Postorder(Node *ptr){
         if(ptr){
-            Postorder(ptr->lchild);
-            Postorder(ptr->rchild);
+            Recursive_Postorder(ptr->lchild);
+            Recursive_Postorder(ptr->rchild);
             cout<<ptr->data<<", ";
         }
     }
@@ -155,18 +156,40 @@ public:
         }
         return x+y;
     }
+
+    void Iterative_Preorder(){
+        stack<Node*> stk;
+        Node *ptr = root;
+        stk.push(root);
+        while(!stk.empty()){
+            if(ptr->lchild){
+                stk.push(ptr->lchild);
+                ptr = ptr->lchild;
+            }
+            else{
+                if(ptr->rchild){
+                    stk.push(ptr->rchild);
+                    ptr = ptr->rchild;
+                }
+                else{
+                    stk.pop();
+                    
+                }
+            }
+        }
+    }
 };
 
 int main(){
     Binary_Tree BT1;
     BT1.CreateTree();
     cout<<endl;
-    cout<<"Preorder: ";
-    BT1.Preorder();
-    cout<<"\nInorder: ";
-    BT1.Inorder();
-    cout<<"\nPostorder: ";
-    BT1.Postorder();
+    cout<<"Recursive_Preorder: ";
+    BT1.Recursive_Preorder();
+    cout<<"\nRecursive_Inorder: ";
+    BT1.Recursive_Inorder();
+    cout<<"\nRecursive_Postorder: ";
+    BT1.Recursive_Postorder();
     cout<<"\nLevelorder: ";
     BT1.Levelorder();
     cout<<"\nHeight: "<<BT1.Height()<<endl;
