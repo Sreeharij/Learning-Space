@@ -1,4 +1,3 @@
-//IMPLEMENTATION IS WRONG
 #include <iostream>
 using namespace std;
 
