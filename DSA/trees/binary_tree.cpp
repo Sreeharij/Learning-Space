@@ -162,19 +162,15 @@ public:
         Node *ptr = root;
         stk.push(root);
         while(!stk.empty()){
-            if(ptr->lchild){
-                stk.push(ptr->lchild);
-                ptr = ptr->lchild;
+            if(ptr == nullptr){
+                ptr = stk.top();
+                stk.pop();
+                ptr = ptr->rchild;
             }
             else{
-                if(ptr->rchild){
-                    stk.push(ptr->rchild);
-                    ptr = ptr->rchild;
-                }
-                else{
-                    stk.pop();
-                    
-                }
+                cout<<ptr->data<<", ";
+                stk.push(ptr);
+                ptr = ptr->lchild;
             }
         }
     }
@@ -193,9 +189,11 @@ int main(){
     cout<<"\nLevelorder: ";
     BT1.Levelorder();
     cout<<"\nHeight: "<<BT1.Height()<<endl;
-    cout<<"\nCount_all_nodes: "<<BT1.Count_all_nodes()<<endl;
-    cout<<"\nCount_leaf_nodes: "<<BT1.Count_leaf_nodes()<<endl;
-    cout<<"\nCount_deg2_nodes: "<<BT1.Count_deg2_nodes()<<endl;
-    cout<<"\nCount_deg1_nodes: "<<BT1.Count_deg1_nodes()<<endl;
+    // cout<<"\nCount_all_nodes: "<<BT1.Count_all_nodes()<<endl;
+    // cout<<"\nCount_leaf_nodes: "<<BT1.Count_leaf_nodes()<<endl;
+    // cout<<"\nCount_deg2_nodes: "<<BT1.Count_deg2_nodes()<<endl;
+    // cout<<"\nCount_deg1_nodes: "<<BT1.Count_deg1_nodes()<<endl;
+    cout<<"\nIterative Preorder: ";
+    BT1.Iterative_Preorder();
     return 0;
 }
