@@ -50,3 +50,27 @@ int ninjaTraining(int n, vector<vector<int>> &points)
 
     return max_val;
 }
+
+//BELOW IS SPACE OPTIMISED APPROACH FOR USING COSNTANT SPACE
+int ninjaTraining(int n, vector<vector<int>> &points)
+{
+    int dp[2][3];
+
+    dp[0][0] = points[0][0];
+    dp[0][1] = points[0][1];
+    dp[0][2] = points[0][2];
+    
+    for(int i=1;i<n;i++){
+        dp[1][0] = max(dp[0][1],dp[0][2]) + points[i][0];
+        dp[1][1] = max(dp[0][0],dp[0][2]) + points[i][1];
+        dp[1][2] = max(dp[0][0],dp[0][1]) + points[i][2];
+
+        dp[0][0] = dp[1][0];
+        dp[0][1] = dp[1][1];
+        dp[0][2] = dp[1][2];
+    }
+    int max_val = dp[1][0] > dp[1][1] ? dp[1][0] : dp[1][1];
+    max_val = max_val > dp[1][2] ? max_val : dp[1][2];
+
+    return max_val;
+}
