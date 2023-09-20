@@ -30,6 +30,46 @@ public:
         last_idx++;
     }
 
+    void swap(int &a,int &b){
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    void delete_max(){
+        int i = last_idx - 1;
+        swap(arr[i],arr[0]);
+        last_idx--;
+        slide_down();
+    }
+
+    void slide_down(){
+        int current = 0;
+        int left_child;
+        int right_child;
+        while(current*2 + 1 < last_idx){
+            left_child = current*2 + 1;
+            right_child = current*2 + 2;
+            int larger_child = left_child;
+            if(right_child < last_idx){
+                larger_child = arr[right_child] > arr[left_child] ? right_child : left_child;
+            }
+            if(arr[current] < arr[larger_child]){
+                swap(arr[current],arr[larger_child]);
+                current = larger_child;
+            }
+            else{
+                break;
+            }
+        }
+    }
+
+    void make_heap_by_insertion(int given_arr[],int size){
+        for(int i=0;i<size;i++){
+            this->insert(given_arr[i]);
+        }
+    }
+
 
     void print_arr(){
         for(int i=0;i<last_idx;i++){
@@ -40,15 +80,25 @@ public:
 
 int main() {
     max_heap myheap;
+    int arr[] = {10,5,12,1,100,1000};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    myheap.make_heap_by_insertion(arr,size);
+    myheap.print_arr();
+    for(int i=0;i<6;i++){
+        myheap.delete_max();
+        myheap.print_arr();
+    }
+    myheap.insert(100);
+    myheap.print_arr();
+    myheap.insert(50);
+    myheap.print_arr();
+    myheap.insert(120);
+    myheap.print_arr();
     myheap.insert(10);
     myheap.print_arr();
-        myheap.insert(5);
+    myheap.insert(300);
     myheap.print_arr();
-        myheap.insert(12);
-    myheap.print_arr();
-        myheap.insert(1);
-    myheap.print_arr();
-        myheap.insert(100);
+    myheap.insert(1000000);
     myheap.print_arr();
 
     return 0;
