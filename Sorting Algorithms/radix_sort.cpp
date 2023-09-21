@@ -23,7 +23,7 @@ void radix_sort(int arr[],int size){
         for(int i=0;i<size;i++){
             count[(arr[i]/exponent)%10]++;
         }
-        for(int i=1;i<size;i++){
+        for(int i=1;i<10;i++){
             count[i] += count[i-1];
         }
         for(int i=size-1;i>=0;i--){
@@ -40,7 +40,7 @@ void radix_sort(int arr[],int size){
 }
 
 int main(){
-    int arr1[] =  {170, 45, 75, 90, 802, 24, 2, 66,26,106};
+    int arr1[] =  {170, 45, 75, 90, 802, 24, 2};
     int size1 = sizeof(arr1)/sizeof(arr1[0]);
     radix_sort(arr1,size1);
     return 0;
