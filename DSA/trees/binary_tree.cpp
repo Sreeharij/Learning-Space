@@ -158,6 +158,8 @@ public:
     }
 
     void Iterative_Preorder(){
+        //EVEN THO THE ROOT NODE IS PUSHED TWICE INTO THE STACK THIS STILL WORKS SINCE THE STACK BECOMES EMPTY AT THE CORRECT TIME
+
         stack<Node*> stk;
         Node *ptr = root;
         stk.push(root);
@@ -169,6 +171,49 @@ public:
             }
             else{
                 cout<<ptr->data<<", ";
+                stk.push(ptr);
+                ptr = ptr->lchild;
+            }
+        }
+    }
+
+    void Iterative_Inorder(){
+        stack<Node*> stk;
+        Node *ptr = root;
+        
+        while(ptr || !stk.empty()){
+            if(ptr == nullptr){
+                ptr = stk.top();
+                stk.pop();
+                cout<<ptr->data<<", ";
+                ptr = ptr->rchild;
+            } 
+            else{
+                stk.push(ptr);
+                ptr = ptr->lchild;
+            }
+        }
+    }
+
+    void Iterative_Postorder(){
+        stack<Node*> stk;
+        Node *ptr = root;
+        Node *visited;
+
+        while(ptr || !stk.empty()){
+            if(ptr == nullptr){
+                ptr = stk.top();
+                if(ptr->rchild && ptr->rchild != visited){
+                    ptr = ptr->rchild;
+                }
+                else{
+                    cout<<ptr->data<<", ";
+                    visited = ptr;
+                    stk.pop(); 
+                    ptr = nullptr;
+                }
+            }
+            else{
                 stk.push(ptr);
                 ptr = ptr->lchild;
             }
@@ -195,5 +240,9 @@ int main(){
     // cout<<"\nCount_deg1_nodes: "<<BT1.Count_deg1_nodes()<<endl;
     cout<<"\nIterative Preorder: ";
     BT1.Iterative_Preorder();
+    cout<<"\nIterative Inorder: ";
+    BT1.Iterative_Inorder();
+    cout<<"\nIterative Postorder: ";
+    BT1.Iterative_Postorder();
     return 0;
 }
