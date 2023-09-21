@@ -195,7 +195,8 @@ public:
         }
     }
 
-    void Iterative_Postorder(){
+    void Iterative_Postorder(){ 
+        //ALTERNATE TECHNIQUE IS THERE WHERE WE CAN PUSH POSITIVE AND NEGATIVE ADDRESSES TO INDICATED VISITED/NON VISITED
         stack<Node*> stk;
         Node *ptr = root;
         Node *visited;
