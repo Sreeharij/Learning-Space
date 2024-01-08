@@ -34,3 +34,24 @@ public:
         return answer;
     }
 };
+
+
+//MOST EFFICIENT OPTIMAL ANSWER GIVEN BELOW
+// class Solution {
+// public:
+//     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q){
+//         TreeNode* ptr = root;
+//         while(ptr){
+//             if(p->val < ptr->val && q->val < ptr->val){
+//                 ptr = ptr->left;
+//             }
+//             else if(p->val > ptr->val && q->val > ptr->val){
+//                 ptr = ptr->right;
+//             }
+//             else{
+//                 return ptr;
+//             }
+//         }
+//         return nullptr;
+//     }
+// };
