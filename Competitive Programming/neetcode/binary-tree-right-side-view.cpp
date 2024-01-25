@@ -9,6 +9,8 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+//BELOW IS DFS SOLUTION
 class Solution {
 public:
     void get_view(TreeNode* root,vector<int>& right_view,int &idx,int current_level){
@@ -35,6 +37,49 @@ public:
         
         right_view.push_back(root->val);
         get_view(root,right_view,idx,0);
+
+        return right_view;
+    }
+};
+
+//BELOW IS BFS SOLUTION
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> right_view;
+        if(!root) return right_view;
+
+        right_view.push_back(root->val);
+
+        queue<TreeNode*> q;
+        q.push(root);
+        TreeNode* ptr;
+        int current = 1;
+        int next = 0;
+
+        while(!q.empty()){
+            if(current == 0){
+                right_view.push_back(q.front()->val);
+                current = next;
+                next = 0;
+            }
+
+            ptr = q.front();
+            q.pop();
+        
+            current -= 1;
+            
+            if(ptr->right){
+                q.push(ptr->right);
+                next += 1;
+            }
+            
+            if(ptr->left){
+                q.push(ptr->left);
+                next += 1;
+            }
+            
+        }
 
         return right_view;
     }
