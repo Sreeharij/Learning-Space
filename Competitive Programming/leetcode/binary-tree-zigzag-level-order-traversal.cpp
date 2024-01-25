@@ -9,6 +9,8 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+//O(N) SOLUTION WITH QUEUE
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
@@ -61,6 +63,52 @@ public:
         }
 
         zigzag_order.push_back(temp);
+        return zigzag_order;
+    }
+};
+
+//O(N^2) SOLUTION WITHOUT QUEUE
+//FORMS AN AGP SERIES AND SUMMATION LEADS TO O(N^2)
+
+class Solution {
+public:
+    int tree_height(TreeNode* root){
+        if(!root) return 0;
+        int left = tree_height(root->left);
+        int right = tree_height(root->right);
+        int bigger = left > right ? left : right;
+        return bigger+1;
+    }
+
+    void current_level(TreeNode* root,int level,vector<int>& temp,bool flag){
+        if(!root) return;
+        if(level == 1){
+            temp.push_back(root->val);
+        }
+        else{
+            if(flag){
+                current_level(root->left,level-1,temp,flag);
+                current_level(root->right,level-1,temp,flag);
+            }
+            else{
+                current_level(root->right,level-1,temp,flag);
+                current_level(root->left,level-1,temp,flag);
+            }
+        }
+    }
+
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> zigzag_order;
+        if(!root) return zigzag_order;
+        int height = tree_height(root);
+        vector<int> temp;
+        bool flag =true;
+        for(int i=1;i<=height;i++){
+            temp.clear();
+            current_level(root,i,temp,flag);
+            flag = flag ? false : true;
+            zigzag_order.push_back(temp);
+        }
         return zigzag_order;
     }
 };
