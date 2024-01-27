@@ -44,3 +44,34 @@ public:
         return final_string;
     }
 };
+
+
+//Using stringstream to do all the tedius work
+class Solution {
+public:
+    void get_string(TreeNode* root,stringstream &final_string){
+        final_string << root->val;
+
+        if(root->left){
+            final_string << '(';
+            get_string(root->left,final_string);
+            final_string << ')';
+        }
+        
+        if(root->right){
+            if(!root->left){
+                final_string << "()";
+            }
+            final_string << '(';
+            get_string(root->right,final_string);
+            final_string << ')';
+        }
+    }
+
+    string tree2str(TreeNode* root) {
+        stringstream final_string;
+        get_string(root,final_string);
+        return final_string.str();
+
+    }
+};
