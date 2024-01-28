@@ -56,7 +56,7 @@ public:
             return nullptr;
         }
         int number = 0;
-        while(idx < str.length()  && str[idx] != '(' && str[idx] != ')' && str[idx] != '\0'){
+        while(str[idx] != '(' && str[idx] != ')' && str[idx] != '\0'){
             number = number*10 + (int)(str[idx] - '0');
             idx++;
         }
