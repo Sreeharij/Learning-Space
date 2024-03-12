@@ -8,14 +8,14 @@ public:
     return x >= 0 && x < rows && y >= 0 && y < cols;
 }
 
-    void bfs(vector<int> &visited, vector<vector<int>>& image, int x, int y, int color, int rows, int cols,int original) {
+    void dfs(vector<int> &visited, vector<vector<int>>& image, int x, int y, int color, int rows, int cols,int original) {
     if (is_valid(x, y, rows, cols) && visited[compute_position(x, y, rows, cols)] == 0 && image[x][y] == original) {
         visited[compute_position(x, y, rows, cols)] = 1;
         image[x][y] = color;
-        bfs(visited, image, x - 1, y, color, rows, cols,original);
-        bfs(visited, image, x + 1, y, color, rows, cols,original);
-        bfs(visited, image, x, y - 1, color, rows, cols,original);
-        bfs(visited, image, x, y + 1, color, rows, cols,original);
+        dfs(visited, image, x - 1, y, color, rows, cols,original);
+        dfs(visited, image, x + 1, y, color, rows, cols,original);
+        dfs(visited, image, x, y - 1, color, rows, cols,original);
+        dfs(visited, image, x, y + 1, color, rows, cols,original);
     }
 }
 
@@ -23,7 +23,7 @@ public:
         int rows = image.size();
         int cols = image[0].size();
         vector<int> visited(rows*cols,0);
-        bfs(visited,image,sr,sc,color,rows,cols,image[sr][sc]);
+        dfs(visited,image,sr,sc,color,rows,cols,image[sr][sc]);
 
         return image;
     }
