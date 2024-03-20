@@ -6,19 +6,17 @@ public:
         visited[number] = 1;
         stk.push(number);
         stack_membership[number] = true;
-        ids_array[number] = low_links_array[number] = id_counter++;  //CHECK IF THERE IS ANY DISCREPRENCY IN THE CORRECT UPDATION OF id_counter VARIABLE
-
+        ids_array[number] = low_links_array[number] = id_counter++;  
         for(int i=0;i<graph_adjacency_list[number].size();i++){
             if(visited[graph_adjacency_list[number][i]] == 0){
                 find_low_links(graph_adjacency_list,ids_array,low_links_array,stk,visited,graph_adjacency_list[number][i],id_counter,stack_membership);
+            }
+            if(stack_membership[graph_adjacency_list[number][i]] == true){
                 low_links_array[number] = min(low_links_array[number],low_links_array[graph_adjacency_list[number][i]]);
             }
-            else{
-                if(stack_membership[graph_adjacency_list[number][i]] == true){
-                    low_links_array[number] = min(low_links_array[number],ids_array[graph_adjacency_list[number][i]]);
-                }
-            }
+        
         }
+
         if(ids_array[number] == low_links_array[number]){
             while(stk.top() != number){
                 stack_membership[stk.top()] = false;
@@ -38,7 +36,6 @@ public:
         vector<bool> stack_membership(n,false);
         for(int i=0;i<connections.size();i++){
             graph_adjacency_list[connections[i][0]].push_back(connections[i][1]);
-            // graph_adjacency_list[connections[i][1]].push_back(connections[i][0]);
         }
         vector<int> ids_array(n,0);
         vector<int> low_links_array(n,0);
@@ -70,6 +67,9 @@ int main(){
     connections.push_back({7,5});
 
     
+
+    
     Solution obj;
     obj.criticalConnections(n,connections);
 }
+
