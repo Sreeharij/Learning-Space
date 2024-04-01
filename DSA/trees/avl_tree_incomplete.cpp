@@ -18,8 +18,6 @@ public:
             ptr = new Node();
         }
     }
-
-    Node * 
 };
 
 int main(){
