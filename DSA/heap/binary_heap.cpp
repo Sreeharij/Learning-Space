@@ -88,10 +88,6 @@ int main() {
         myheap.delete_max();
         myheap.print_arr();
     }
-    myheap.insert(100);
-    myheap.print_arr();
-    myheap.insert(50);
-    myheap.print_arr();
     myheap.insert(120);
     myheap.print_arr();
     myheap.insert(10);
