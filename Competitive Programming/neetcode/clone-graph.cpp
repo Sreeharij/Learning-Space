@@ -19,6 +19,7 @@ public:
 };
 */
 
+//BFS IMPLEMENTATION BELOW
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
@@ -46,6 +47,34 @@ public:
             }
         }
 
+        return clone;
+    }
+};
+
+
+//DFS IMPLEMENTATION BELOW
+class Solution {
+public:
+    Node* make_clone(Node* node,unordered_map<Node*,Node*>& visited){
+        Node* copy = new Node(node->val);
+        visited[node] = copy;
+        for(auto x: node->neighbors){
+            if(visited.find(x) == visited.end()){
+                Node* child = make_clone(x,visited);
+                visited[x] = child;
+                copy->neighbors.push_back(child);
+            }
+            else{
+                copy->neighbors.push_back(visited[x]);
+            }
+        }
+        return copy;
+    }
+
+    Node* cloneGraph(Node* node) {
+        if(!node) return nullptr;
+        unordered_map<Node*,Node*> visited;
+        Node* clone = make_clone(node,visited);
         return clone;
     }
 };
