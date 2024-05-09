@@ -61,7 +61,6 @@ public:
         for(auto x: node->neighbors){
             if(visited.find(x) == visited.end()){
                 Node* child = make_clone(x,visited);
-                visited[x] = child;
                 copy->neighbors.push_back(child);
             }
             else{
