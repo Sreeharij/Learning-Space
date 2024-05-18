@@ -65,7 +65,7 @@ public:
     }
 };
 
-//below implementation takes O(n*m) for making patterns_map and O(n^2) for bfs = O(n^2) total complexity where n is length of wordList
+//below implementation takes O(n*m) for making patterns_map, O(26*2/2 * n*m) for building graph from it, O(n^2) for doing bfs => O(n^2)
 class Solution {
 public:
     void get_patterns_generated(string& word, unordered_map<string,vector<string>>& patterns_map,int word_length){
@@ -135,5 +135,45 @@ public:
         shortest_length = get_shortest_distance(beginWord,endWord,graph);
         return shortest_length;
         return 10;
+    }
+};
+
+
+//Below implementation takes O(n*m*26)
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        bool present = false;
+        for(auto word: wordList){
+            if(word == endWord){
+                present=true;
+                break;
+            }
+        }
+        if(!present) return 0;
+        int word_length = beginWord.size();
+        unordered_set<string> st(wordList.begin(),wordList.end());
+        queue<pair<string,int>> q;
+        q.push({beginWord,1});
+        st.erase(beginWord);
+        while(!q.empty()){
+            string word = q.front().first;
+            int distance = q.front().second;
+            q.pop();
+            if(word == endWord){
+                return distance;
+            }
+            for(int i=0;i<word_length;i++){
+                for(char x = 'a';x<='z';x++){
+                    string new_word = word;
+                    new_word[i] = x;
+                    if(st.find(new_word)!=st.end()){
+                        st.erase(new_word);
+                        q.push({new_word,distance+1});
+                    }
+                }
+            }
+        }
+        return 0;
     }
 };
