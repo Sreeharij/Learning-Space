@@ -143,16 +143,11 @@ public:
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        bool present = false;
-        for(auto word: wordList){
-            if(word == endWord){
-                present=true;
-                break;
-            }
-        }
-        if(!present) return 0;
-        int word_length = beginWord.size();
         unordered_set<string> st(wordList.begin(),wordList.end());
+        if(st.find(endWord) == st.end()){
+            return 0;
+        }        
+        int word_length = beginWord.size();
         queue<pair<string,int>> q;
         q.push({beginWord,1});
         st.erase(beginWord);
@@ -164,14 +159,15 @@ public:
                 return distance;
             }
             for(int i=0;i<word_length;i++){
+                char original = word[i];
                 for(char x = 'a';x<='z';x++){
-                    string new_word = word;
-                    new_word[i] = x;
-                    if(st.find(new_word)!=st.end()){
-                        st.erase(new_word);
-                        q.push({new_word,distance+1});
+                    word[i] = x;
+                    if(st.find(word)!=st.end()){
+                        st.erase(word);
+                        q.push({word,distance+1});
                     }
                 }
+                word[i] = original;
             }
         }
         return 0;
