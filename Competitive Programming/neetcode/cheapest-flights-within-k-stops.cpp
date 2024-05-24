@@ -1,3 +1,4 @@
+//O(k*E solution) using normal queue
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
@@ -28,5 +29,29 @@ public:
             }
         }
         return shortest_paths[dst] == INT_MAX ? -1 : shortest_paths[dst];
+    }
+};
+
+//O(k*E) using bellman ford
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<int> distance(n,INT_MAX);
+        distance[src] = 0;
+        for(int i=0;i<k+1;i++){
+            vector<int> temp_distance(distance.begin(),distance.end());
+
+            for(auto coord: flights){
+                int u = coord[0];
+                int v = coord[1];
+                int weight = coord[2];
+                if(distance[u] == INT_MAX)continue;
+                if(distance[u] + weight < temp_distance[v]){
+                    temp_distance[v] = distance[u] + weight;
+                }
+            }
+            distance = temp_distance;
+        }
+        return distance[dst] == INT_MAX ? -1 : distance[dst];
     }
 };
