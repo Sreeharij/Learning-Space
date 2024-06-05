@@ -1,37 +1,30 @@
-import React from 'react';
-import './DashboardLayout.css';
-
 export default function DashboardLayout({
     children,
     users,
     revenue,
     notifications,
+    login,
 } : {
-    readonly children: React.ReactNode;
-    readonly users: React.ReactNode;
-    readonly revenue: React.ReactNode;
-    readonly notifications: React.ReactNode;
-}) {
-    return (
-        <>
-            <h3>{children}</h3>
-            <div className="dashboard-container">
-                <div className="card">
-                    <div className="card-body">
-                        {users}
+    children: React.ReactNode;
+    users: React.ReactNode;
+    revenue: React.ReactNode;
+    notifications: React.ReactNode;
+    login: React.ReactNode;
+}){
+    const is_logged_in = false;
+    return is_logged_in ?   
+        (
+            <div>
+                <div>{children}</div>
+                <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div>{users}</div>
+                        <div>{revenue}</div>
                     </div>
-                </div>
-                <div className="card">
-                    <div className="card-body">
-                        {revenue}
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="card-body">
-                        {notifications}
-                    </div>
+                    <div style={{ display: "flex", flex: 1 }}>{notifications}</div>
                 </div>
             </div>
-        </>
-    );
+        )
+    :
+    (<div>{login}</div>);
 }
