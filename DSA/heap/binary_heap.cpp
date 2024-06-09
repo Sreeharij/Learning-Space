@@ -2,99 +2,114 @@
 using namespace std;
 
 class max_heap{
-private:
+public:
     int *arr;
     int last_idx;
-    int array_max_size = 100;
+    int max_arr_size = 100;
 
-public:
+
     max_heap(){
-        arr = new int[array_max_size];
-        for(int i=0;i<array_max_size;i++){
-            arr[i] = 0;
-        }
-        last_idx = 0;
+        arr = new int[max_arr_size];
+        last_idx = -1;
     }
     ~max_heap(){
         delete[] arr;
     }
 
-    void insert(int key){
-        int i = last_idx;
-        while(i>0 && key > arr[(i+1)/2 - 1]){
-            arr[i] = arr[(i+1)/2 - 1];
-            i = (i+1)/2 - 1;
+    void make_heap_by_insertion(int arr[],int size){
+        for(int i=0;i<size;i++){
+            this->insert(arr[i]);
         }
-        arr[i] = key;
-        last_idx++;
     }
 
-    void swap(int &a,int &b){
+    void insert(int x){
+        if(last_idx == max_arr_size-1){
+            max_arr_size *= 2;
+            int *new_arr = new int[max_arr_size];
+            for(int i=0;i<=last_idx;i++){
+                new_arr[i] = arr[i];
+            }
+            delete[] arr;
+            arr = new_arr;
+        }
+
+        last_idx++;
+        arr[last_idx] = x;
+        int i = last_idx;
+        int temp = arr[last_idx];
+        while(i > 0 && arr[(i-1)/2] < temp){
+            arr[i] = arr[(i-1)/2];
+            i = (i-1)/2;
+        }
+        arr[i] = temp;
+    }          
+
+    void display(){
+        for(int i=0;i<=last_idx;i++){
+            cout<<arr[i]<<" ";
+        }cout<<endl;
+    }
+
+    void swap(int& a,int& b){
         int temp = a;
         a = b;
         b = temp;
     }
 
-    void delete_max(){
-        int i = last_idx - 1;
-        swap(arr[i],arr[0]);
+    int delete_max(){
+        if(last_idx == -1){
+            cout<<"Heap is empty"<<endl;
+            return -1;
+        }
+        int max = arr[0];
+        swap(arr[0],arr[last_idx]);
         last_idx--;
-        slide_down();
-    }
+        int i = 0;
 
-    void slide_down(){
-        int current = 0;
-        int left_child;
-        int right_child;
-        while(current*2 + 1 < last_idx){
-            left_child = current*2 + 1;
-            right_child = current*2 + 2;
-            int larger_child = left_child;
-            if(right_child < last_idx){
-                larger_child = arr[right_child] > arr[left_child] ? right_child : left_child;
+        while(true){
+            int left_child = 2*i + 1;
+            int right_child = 2*i + 2;
+            int largest = i;
+
+            if(left_child <= last_idx && arr[left_child] > arr[largest]){
+                largest = left_child;
             }
-            if(arr[current] < arr[larger_child]){
-                swap(arr[current],arr[larger_child]);
-                current = larger_child;
+            if(right_child <= last_idx && arr[right_child] > arr[largest]){
+                largest = right_child;
             }
-            else{
+            if(largest == i){
                 break;
             }
+            swap(arr[i],arr[largest]);
+            i = largest;
         }
-    }
-
-    void make_heap_by_insertion(int given_arr[],int size){
-        for(int i=0;i<size;i++){
-            this->insert(given_arr[i]);
-        }
-    }
-
-
-    void print_arr(){
-        for(int i=0;i<last_idx;i++){
-            cout<<arr[i]<<" ";
-        }cout<<"\n\n";
+        return max;
     }
 };
 
 int main() {
     max_heap myheap;
-    int arr[] = {10,5,12,1,100,1000};
+    // int arr[] = {100, 30, 50, 70, 10};
+    int arr[] = {1,2,3,4,5,6,7,8,9,10};
     int size = sizeof(arr)/sizeof(arr[0]);
-    myheap.make_heap_by_insertion(arr,size);
-    myheap.print_arr();
-    for(int i=0;i<6;i++){
+    // myheap.make_heap_by_insertion(arr,size);
+    myheap.display();
+    for(int i=0;i<size;i++){
         myheap.delete_max();
-        myheap.print_arr();
+        myheap.display();
     }
-    myheap.insert(120);
-    myheap.print_arr();
-    myheap.insert(10);
-    myheap.print_arr();
-    myheap.insert(300);
-    myheap.print_arr();
-    myheap.insert(1000000);
-    myheap.print_arr();
+    for(int i=0;i<size;i++){
+        cout<<myheap.arr[i]<<" ";
+    }cout<<endl;
+
+    // myheap.insert(120);
+    // myheap.print_arr();
+    // myheap.insert(10);
+    // myheap.print_arr();
+    // myheap.insert(300);
+    // myheap.print_arr();
+    // myheap.insert(1000000);
+    // myheap.print_arr();
 
     return 0;
 }
