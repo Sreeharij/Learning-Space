@@ -33,7 +33,12 @@ func main(){
 	sentence := strings.Join(wordsCollection," ")
 	fmt.Println(sentence)
 
-	for idx, char := range sentence{
-		fmt.Printf("Index: %d, Character: %c\n",idx,char)
-	}
+	// for idx, char := range sentence{
+	// 	fmt.Printf("Index: %d, Character: %c\n",idx,char)
+	// }
+
+	string1 := "Hello"
+	string2 := "Hello"
+	fmt.Println(strings.Compare(string1,string2))
+	fmt.Println(string1 == string2)
 }
