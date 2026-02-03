@@ -7,7 +7,7 @@ export default function Home() {
       <motion.div
         initial={{ opacity: 0, x: -100, y: 50 }}
         animate={{ opacity: 1, x: 200, y: 300 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ type: "spring", stiffness: 120 }}
         style={{
           width: 100,
           height: 100,
