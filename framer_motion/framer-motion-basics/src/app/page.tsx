@@ -14,6 +14,16 @@ export default function Home() {
           background: "white",
         }}
       />
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        style={{
+          padding: "12px 20px",
+          fontSize: 16,
+        }}
+      >
+        Click Me
+      </motion.button>
 
     </div>
   );
