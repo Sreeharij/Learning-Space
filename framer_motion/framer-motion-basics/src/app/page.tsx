@@ -20,15 +20,13 @@ const item = {
 export default function Home() {
   return (
     <div style={{ padding: 40 }}>
-      <motion.ul
-        variants={container}
-        initial="hidden"
-        animate="show"
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
       >
-        <motion.li variants={item}>Item 1</motion.li>
-        <motion.li variants={item}>Item 2</motion.li>
-        <motion.li variants={item}>Item 3</motion.li>
-      </motion.ul>
+        Scroll Animation
+      </motion.div>
     </div>
   );
 }
