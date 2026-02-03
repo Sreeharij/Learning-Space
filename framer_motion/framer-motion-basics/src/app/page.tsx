@@ -25,6 +25,20 @@ export default function Home() {
         Click Me
       </motion.button>
 
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{
+          repeat: Infinity,
+          duration: 2,
+          ease: "linear",
+        }}
+        style={{
+          width: 100,
+          height: 100,
+          background: "white",
+        }}
+      />
+
     </div>
   );
 }
