@@ -1,61 +1,34 @@
 "use client";
 import { motion } from "framer-motion";
 
-const boxVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 },
 };
 
 
 export default function Home() {
   return (
     <div style={{ padding: 40 }}>
-      {/* <motion.div
-        initial={{ opacity: 0, x: -100, y: 50 }}
-        animate={{ opacity: 1, x: 200, y: 300 }}
-        transition={{ type: "spring", stiffness: 120 }}
-        style={{
-          width: 100,
-          height: 100,
-          background: "white",
-        }}
-      />
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        style={{
-          padding: "12px 20px",
-          fontSize: 16,
-        }}
-      >
-        Click Me
-      </motion.button>
-
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{
-          repeat: Infinity,
-          duration: 2,
-          ease: "linear",
-        }}
-        style={{
-          width: 100,
-          height: 100,
-          background: "white",
-        }}
-      /> */}
-
-      <motion.div
-        variants={boxVariants}
+      <motion.ul
+        variants={container}
         initial="hidden"
-        animate="visible"
-        transition={{ duration: 0.5 }}
-        style={{
-          width: 100,
-          height: 100,
-          background: "white",
-        }}
-      />
+        animate="show"
+      >
+        <motion.li variants={item}>Item 1</motion.li>
+        <motion.li variants={item}>Item 2</motion.li>
+        <motion.li variants={item}>Item 3</motion.li>
+      </motion.ul>
     </div>
   );
 }
