@@ -1,10 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
 
+const boxVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+
 export default function Home() {
   return (
     <div style={{ padding: 40 }}>
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, x: -100, y: 50 }}
         animate={{ opacity: 1, x: 200, y: 300 }}
         transition={{ type: "spring", stiffness: 120 }}
@@ -37,8 +43,19 @@ export default function Home() {
           height: 100,
           background: "white",
         }}
-      />
+      /> */}
 
+      <motion.div
+        variants={boxVariants}
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.5 }}
+        style={{
+          width: 100,
+          height: 100,
+          background: "white",
+        }}
+      />
     </div>
   );
 }
