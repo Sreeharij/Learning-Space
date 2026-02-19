@@ -10,31 +10,24 @@ func main() {
 	switch os.Args[1] {
 	case "run":
 		run()
-
-	case "child":
-		child()
 	default:
-		fmt.Println("Invalid")
+		panic("usage: run <command>")
 	}
 }
 
 func run() {
-	fmt.Println("Parent running")
+	fmt.Printf("Running %v as PID %d\n", os.Args[2:], os.Getpid())
 
-	// cmd := exec.Command("/proc/self/exe", "hola") //Run same process with invalid command line argument
-	cmd := exec.Command("/proc/self/exe", "child")
+	cmd := exec.Command(os.Args[2], os.Args[3:]...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Run()
+
+	must(cmd.Run())
 }
 
-func child() {
-	fmt.Println("Inside Child proces")
-
-	cmd := exec.Command("/bin/bash")
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Run()
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
